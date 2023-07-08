@@ -1,0 +1,137 @@
+<html>
+<head>
+<style>
+/* CSS code for styling the cart */
+.cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 10px;
+}
+
+.cart-item img {
+  width: 100px;
+  height: 100px;
+}
+
+.cart-item p {
+  margin: 0;
+}
+
+.cart-item button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+.total p {
+  font-weight: bold;
+}
+
+.total button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px;
+}
+</style>
+</head>
+<body>
+<div class="cart">
+<h1>Shopping Cart</h1>
+<!-- HTML code for displaying the cart items -->
+<div class="cart-item">
+<img src="product1.jpg" alt="Product 1">
+<div>
+<p>Product Name</p>
+<p>$10.00</p>
+</div>
+<button onclick="removeItem(this)">Remove</button>
+</div>
+<div class="cart-item">
+<img src="product2.jpg" alt="Product 2">
+<div>
+<p>Product Name</p>
+<p>$20.00</p>
+</div>
+<button onclick="removeItem(this)">Remove</button>
+</div>
+<div class="total">
+<p>Total: $30.00</p>
+<button onclick="checkout()">Checkout</button>
+</div>
+</div>
+
+<script>
+// JS code for adding and removing items from the cart
+function removeItem(button) {
+  // Get the parent element of the button, which is the cart item
+  let cartItem = button.parentElement;
+
+  // Get the price of the item
+  let price = cartItem.querySelector("p:nth-child(2)").innerText;
+
+  // Remove the item from the cart
+  cartItem.remove();
+
+  // Update the total price
+  updateTotal(price, false);
+}
+
+function updateTotal(price, add) {
+   // Get the total element
+   let total = document.querySelector(".total p");
+
+   // Get the current total price
+   let currentTotal = total.innerText;
+
+   // Convert the price and current total to numbers
+   price = Number(price.replace("$", ""));
+   currentTotal = Number(currentTotal.replace("Total: $", ""));
+
+   // Add or subtract the price from the current total
+   if (add) {
+     currentTotal += price;
+   } else {
+     currentTotal -= price;
+   }
+
+   // Update the total element with the new total
+   total.innerText = "Total: $" + currentTotal.toFixed(2);
+}
+
+function checkout() {
+   // Get the total element
+   let total = document.querySelector(".total p");
+
+   // Get the current total price
+   let currentTotal = total.innerText;
+
+   // Check if the cart is empty
+   if (currentTotal == "Total: $0.00") {
+     alert("Your cart is empty!");
+   } else {
+     alert("You have successfully checked out!");
+   }
+}
+</script>
+</body>
+</html>
